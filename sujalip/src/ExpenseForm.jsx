@@ -13,6 +13,8 @@ function ExpenseForm({ budget, setBudget, expenses, setExpenses }) {
         totalExpenses += Number(expense.amount);
     }
 
+    const isNearBudget = totalExpenses >= (budget * 0.8) && budget > 0;
+
     function handleSubmit(e) {
         e.preventDefault();
 
@@ -37,6 +39,14 @@ function ExpenseForm({ budget, setBudget, expenses, setExpenses }) {
                 <input type='text' value={budget} onChange={(e)=>setBudget(e.target.value)} placeholder='Enter Budget'/>
                 <p>Expenses: ${ totalExpenses}</p>
                 <p>Remaining budget: {budget - totalExpenses}</p>
+                
+{/*Budget warnign message */}
+
+                {isNearBudget && (
+          <p className="warning-message">
+            Warning: 80% of the budget has been utilized!
+          </p>
+        )}
 
             </div>
             <form onSubmit={handleSubmit}>
